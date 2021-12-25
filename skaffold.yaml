@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+metadata:
+  name: minizinc-dispatcher
+build:
+  tagPolicy:
+    gitCommit:
+      variant: "Tags"
+      ignoreChanges: true
+  artifacts:
+  - image: mzn-dispatcher
+    docker:
+      dockerfile: Dockerfile
+  - image: mzn-job-sidecar
+    context: sidecar
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kustomize: {}

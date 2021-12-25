@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: mzn-dispatcher-service
+spec:
+    selector:
+        app: mzn-dispatcher
+    ports:
+        - protocol: TCP
+          port: 8080
+          targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mzn-dispatcher
+  name: mzn-dispatcher
+spec:
+  selector:
+    matchLabels:
+      app: mzn-dispatcher
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mzn-dispatcher
+    spec:
+      containers:
+      - image: mzn-dispatcher
+        name: mzn-dispatcher
+        env:
+        - name: JOB_PREFIX
+          value: mzn-job
+        - name: SIDECAR_IMAGE_NAME
+          valueFrom:
+              configMapKeyRef:
+                  name: dispatcher-config
+                  key: SIDECAR_IMAGE_NAME.txt
+        - name: SCHEDULER_NAME
+          value: scheduler-app
+        - name: test
+          value: $(TEST)

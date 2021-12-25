@@ -1,0 +1,4 @@
+kubernetes_asyncio
+fastapi
+aiohttp
+uvicorn[standard]

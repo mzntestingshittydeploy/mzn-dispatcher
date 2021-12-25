@@ -1,0 +1,1 @@
+mzn-job-sidecar:0.5

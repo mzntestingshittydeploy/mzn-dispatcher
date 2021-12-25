@@ -1,0 +1,8 @@
+resources:
+  - ./mzn-dispatcher.yaml
+  - ./rbac.yaml
+
+configMapGenerator:
+- name: dispatcher-config
+  files: 
+    - ./SIDECAR_IMAGE_NAME.txt
